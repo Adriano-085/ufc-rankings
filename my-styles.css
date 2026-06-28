@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --fonte-principal: 'Roboto Condensed', sans-serif;
+    --vermelho-ufc: #DB1A1A;
+    --preto: #212122;
+    --cinza: #ACB3A0;
+    --cinza-escuro : #7A7A7A;
+}
+
+/* Menu header and logo (moved from global styles) */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    margin: 4rem 6rem;
+    border: 5px solid transparent;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1.5rem 5rem;
+    gap: 16px;
+    position: relative; /* keep as positioning context for indicator */
+    transition: margin 600ms cubic-bezier(.2,.9,.2,1), padding 600ms cubic-bezier(.2,.9,.2,1), background 600ms ease, box-shadow 600ms ease;
+}
+
+.menu-header__itens {
+    position: relative;
+    padding: 6px 10px;
+    text-transform: uppercase;
+    font-family: var(--fonte-principal);
+    font-weight: 800;
+    font-size: 1.30rem;
+    text-decoration: none;
+    color: var(--preto);
+    cursor: pointer;
+    transition: padding 420ms ease, color 420ms ease;
+}
+
+.menu-header__itens:hover {
+    color: var(--vermelho-ufc);
+}
+
+/* Indicator bar under menu items */
+.menu-indicator {
+    position: absolute;
+    left: 0;
+    bottom: -24px; /* adjust distance from menu */
+    height: 3px;
+    width: 0;
+    background: var(--vermelho-ufc);
+    border-radius: 3px;
+    transition: transform 320ms ease, width 320ms ease;
+    transform: translateX(0);
+    pointer-events: none;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 0 10rem 0 10rem;
+}
+
+/* Hover tint: tint the raster logo toward red and add a subtle scale */
+.logo {
+    transition: filter 220ms ease, transform 180ms ease;
+}
+
+.logo:hover {
+    -webkit-filter: grayscale(0%) sepia(100%) saturate(600%) hue-rotate(-10deg) brightness(0.95);
+    filter: grayscale(0%) sepia(100%) saturate(600%) hue-rotate(-10deg) brightness(0.95);
+    transform: scale(1.03);
+    cursor: pointer;
+    /* Optional red glow to emphasize hover */
+    box-shadow: 0 6px 18px rgba(233, 69, 96, 0.25);
+}
+
+/* Extra specificity in case other rules override */
+.menu-header img.logo:hover {
+    -webkit-filter: grayscale(0%) sepia(100%) saturate(600%) hue-rotate(-10deg) brightness(0.95);
+    filter: grayscale(0%) sepia(100%) saturate(600%) hue-rotate(-10deg) brightness(0.95);
+}
+
+/* Sticky header styles when page is scrolled */
+header.is-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1100;
+    margin: 0;
+    background: black;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+header.is-sticky .menu-header {
+    margin: 5px; /* remove horizontal gaps so it spans full width */
+    padding: 0 1rem; /* small inner padding so content doesn't touch edges */
+}
+
+/* keep item padding the same when sticky to avoid height change */
+header.is-sticky .menu-header__itens {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    color: white;
+}
+
+/* When sticky, disable any hover/transform/color effects on the header logo */
+header.is-sticky .logo,
+header.is-sticky .logo:hover {
+    -webkit-filter: none !important;
+    filter: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+}
+
+header.is-sticky .menu-indicator {
+    bottom: 12px; /* adjust distance from menu */
+}
